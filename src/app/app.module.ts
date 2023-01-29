@@ -8,6 +8,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { Page404Component } from './components/page404/page404.component';
 
+import { TooltipModule } from 'primeng/tooltip';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +20,8 @@ import { Page404Component } from './components/page404/page404.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SubmissionsModule
+    SubmissionsModule,
+    TooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

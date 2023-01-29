@@ -7,6 +7,8 @@ import { SubmissionListComponent } from './components/submission-list/submission
 import { SubmissionMapComponent } from './components/submission-map/submission-map.component';
 import { SubmissionSearchComponent } from './components/submission-search/submission-search.component';
 
+import { SelectButtonModule } from 'primeng/selectbutton';
+
 @NgModule({
   declarations: [
     SubmissionsComponent,
@@ -16,7 +18,8 @@ import { SubmissionSearchComponent } from './components/submission-search/submis
   ],
   imports: [
     CommonModule,
-    SubmissionsRoutingModule
+    SubmissionsRoutingModule,
+    SelectButtonModule
   ]
 })
 export class SubmissionsModule { }

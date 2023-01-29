@@ -1,0 +1,29 @@
+@import 'src/colors';
+@import 'src/variables';
+
+:host {
+  display: flex;
+  flex-direction: row;
+  height: 72px;
+  background-color: $primary;
+  padding: 0 32px;
+  align-items: center;
+  justify-content: center;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .logo {
+    display: flex;
+    font-weight: 700;
+    font-size: 32px;
+    color: $white;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+}

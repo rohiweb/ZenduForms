@@ -1,1 +1,12 @@
-<p>navbar works!</p>
+<ul class="main-nav">
+  <li *ngFor="let item of menuItems" [ngClass]="{active: item.isActive(currentRoute)}">
+    <a [routerLink]="[item.link]">
+      <img [src]="item.icon.src" width="{{item.icon.width}}" height="{{item.icon.height}}" alt="{{item.icon.alt}}" />
+      {{item.label}}
+    </a>
+  </li>
+</ul>
+<ul class="user-nav">
+  <li pTooltip="Notifications" tooltipPosition="left" [showDelay]="500"><a href="#"><img src="assets/icons/notifications.svg" alt="Notifications" /></a></li>
+  <li pTooltip="Logout" tooltipPosition="left" [showDelay]="500"><a href="#"><img src="assets/icons/logout.svg" alt="Logout" /></a></li>
+</ul>

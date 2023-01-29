@@ -1,0 +1,44 @@
+@import 'src/colors';
+
+:host {
+  display: flex;
+  width: 75%;
+  flex-direction: row;
+  justify-content: space-between;
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    color: $white;
+
+    li {
+      display: flex;
+      align-items: center;
+
+      a {
+        display: flex;
+        flex-direction: row;
+        padding: 24px 16px;
+        align-items: center;
+        color: $white;
+        text-decoration: none;
+        > img {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    &.main-nav li {
+      transition: background 0.3s ease-in-out;
+      &:hover, &.active {
+        background: $primary-active
+      }
+    }
+
+    &.user-nav li a {
+      padding: 4px;
+      margin: 0 2px;
+    }
+  }
+}
