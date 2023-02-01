@@ -1,10 +1,12 @@
 @import "zenduforums-primeng-theme";
 @import "variables";
+@import "colors";
 
 html, body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
+  color: $regular;
   font-size: 16px;
 }
 
@@ -14,6 +16,13 @@ ul, ol, li {
   list-style-type: none;
 }
 
-.app-max-width {
+.zf-max-width {
   max-width: $screen-xl;
+}
+
+h2.zf-title {
+  margin: 0;
+  padding: 0 0 32px;
+  font-size: 32px;
+  font-weight: 700;
 }

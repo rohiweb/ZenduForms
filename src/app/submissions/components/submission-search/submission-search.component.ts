@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'zf-submission-search',
@@ -6,32 +7,48 @@ import { Component } from '@angular/core';
   styleUrls: ['./submission-search.component.scss']
 })
 export class SubmissionSearchComponent {
-  stateOptions: any[];
+  viewModeOptions = [
+    {label: 'Map', value: 'map'},
+    {label: 'List', value: 'list'}
+  ];
 
-  paymentOptions: any[];
+  fromOptions = [
+    {label: 'denisgordiyenya1@gmail.com', value: 'denisgordiyenya1@gmail.com'},
+    {label: 'denisgordiyenya2@gmail.com', value: 'denisgordiyenya2@gmail.com'},
+    {label: 'denisgordiyenya3@gmail.com', value: 'denisgordiyenya3@gmail.com'}
+  ];
 
-  justifyOptions: any[];
+  statusOptions = [
+    {label: 'Uncomplete', value: 'uncomplete'},
+    {label: 'Low Risk', value: 'low_risk'},
+    {label: 'Needs Review', value: 'needs_review'}
+  ];
 
-  value1: string = "off";
+  searchString = '';
+  from = '';
+  status = '';
+  date = new Date();
+  viewMode = 'map';
 
-  value2: number = 0;
+  constructor(private router: Router) {}
 
-  value3: any;
+  onSearchStringChange() {
+    console.log(this.searchString)
+  }
 
-  constructor() {
-      this.stateOptions = [{label: 'Off', value: 'off'}, {label: 'On', value: 'on'}];
+  onFromChange() {
+    console.log(this.from);
+  }
 
-      this.paymentOptions = [
-          {name: 'Option 1', value: 1},
-          {name: 'Option 2', value: 2},
-          {name: 'Option 3', value: 3}
-      ];
+  onStatusChange() {
+    console.log(this.status);
+  }
 
-      this.justifyOptions = [
-          {icon: 'pi pi-align-left', justify: 'Left'},
-          {icon: 'pi pi-align-right', justify: 'Right'},
-          {icon: 'pi pi-align-center', justify: 'Center'},
-          {icon: 'pi pi-align-justify', justify: 'Justify'}
-      ];
+  onDateChange() {
+    console.log(this.date);
+  }
+
+  onViewModeChange() {
+    this.router.navigate([`/submissions/${this.viewMode}`])
   }
 }

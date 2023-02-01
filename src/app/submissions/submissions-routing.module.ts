@@ -4,7 +4,7 @@ import { SubmissionListComponent } from './components/submission-list/submission
 import { SubmissionMapComponent } from './components/submission-map/submission-map.component';
 
 const routes: Routes = [
-  {path: '', component: SubmissionListComponent},
+  {path: '', component: SubmissionMapComponent},
   {path: 'list', component: SubmissionListComponent},
   {path: 'map', component: SubmissionMapComponent}
 ];

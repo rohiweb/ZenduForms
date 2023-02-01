@@ -1,1 +1,61 @@
-<p>submission-map works!</p>
+<ul class="submission-list">
+  <li>
+    <div class="status uncomplete"></div>
+    <h5 class="name">Work Flow: Requires Location</h5>
+    <div class="attribute"><span class="name">From:</span> denisgordiyenya@gmail.com</div>
+    <div class="attribute"><span class="name">To:</span> denisgordiyenya@gmail.com</div>
+    <div class="attribute"><span class="name">Due date:</span> <span class="date">06 December</span></div>
+  </li>
+  <li>
+    <div class="status low-risk"></div>
+    <h5 class="name">Work Flow: Requires Location</h5>
+    <div class="attribute"><span class="name">From</span> denisgordiyenya@gmail.com</div>
+    <div class="attribute"><span class="name">To:</span> denisgordiyenya@gmail.com</div>
+    <div class="attribute"><span class="name">Due date:</span> <span class="date">06 December</span></div>
+  </li>
+  <li>
+    <div class="status needs-review"></div>
+    <h5 class="name">Work Flow: Requires Location</h5>
+    <div class="attribute"><span class="name">From:</span> denisgordiyenya@gmail.com</div>
+    <div class="attribute"><span class="name">To:</span> denisgordiyenya@gmail.com</div>
+    <div class="attribute"><span class="name">Due date:</span> <span class="date">06 December</span></div>
+  </li>
+  <li>
+    <div class="status uncomplete"></div>
+    <h5 class="name">Work Flow: Requires Location</h5>
+    <div class="attribute"><span class="name">From:</span> denisgordiyenya@gmail.com</div>
+    <div class="attribute"><span class="name">To:</span> denisgordiyenya@gmail.com</div>
+    <div class="attribute"><span class="name">Due date:</span> <span class="date">06 December</span></div>
+  </li>
+  <li>
+    <div class="status uncomplete"></div>
+    <h5 class="name">Work Flow: Requires Location</h5>
+    <div class="attribute"><span class="name">From:</span> denisgordiyenya@gmail.com</div>
+    <div class="attribute"><span class="name">To:</span> denisgordiyenya@gmail.com</div>
+    <div class="attribute"><span class="name">Due date:</span> <span class="date">06 December</span></div>
+  </li>
+  <li>
+    <div class="status uncomplete"></div>
+    <h5 class="name">Work Flow: Requires Location</h5>
+    <div class="attribute"><span class="name">From:</span> denisgordiyenya@gmail.com</div>
+    <div class="attribute"><span class="name">To:</span> denisgordiyenya@gmail.com</div>
+    <div class="attribute"><span class="name">Due date:</span> <span class="date">06 December</span></div>
+  </li>
+  <li>
+    <div class="status uncomplete"></div>
+    <h5 class="name">Work Flow: Requires Location</h5>
+    <div class="attribute"><span class="name">From:</span> denisgordiyenya@gmail.com</div>
+    <div class="attribute"><span class="name">To:</span> denisgordiyenya@gmail.com</div>
+    <div class="attribute"><span class="name">Due date:</span> <span class="date">06 December</span></div>
+  </li>
+</ul>
+<div #map class="submission-map">
+  <!-- <div style="width: 900px; height: 500px; background-color: green;"></div> -->
+  <div *ngIf="apiLoaded | async">
+    <google-map 
+      [width]="map.clientWidth" 
+      [height]="map.clientHeight"
+      [center]="center"
+    ></google-map>
+  </div>
+</div>

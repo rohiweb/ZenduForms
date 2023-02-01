@@ -1,3 +1,18 @@
-<p>submission-search works!</p>
-<h5>Single Selection</h5>
-<p-selectButton [options]="stateOptions" optionLabel="label" optionValue="value"></p-selectButton>
+<div class="filters">
+  <span class="p-input-icon-left">
+    <i class="pi pi-search"></i>
+    <input [(ngModel)]="searchString" (ngModelChange)="onSearchStringChange()" type="text" pInputText placeholder="Search..." />
+  </span>
+  <p-dropdown (onChange)="onFromChange()" [options]="fromOptions" [(ngModel)]="from" placeholder="Select From" [showClear]="true"></p-dropdown>
+  <p-dropdown (onChange)="onStatusChange()" [options]="statusOptions" [(ngModel)]="status" placeholder="Select Status" [showClear]="true"></p-dropdown>
+  <p-calendar (ngModelChange)="onDateChange()" appendTo="body" [(ngModel)]="date" [showIcon]="true"></p-calendar>
+</div>
+
+<div class="actions">
+  <p-selectButton [options]="viewModeOptions" [(ngModel)]="viewMode" (onChange)="onViewModeChange()"></p-selectButton>
+  <p-button styleClass="p-button-text">
+    <ng-template pTemplate="content">
+        <img src="assets/icons/export.svg" class="export-icon" alt="export icon" /> Export
+    </ng-template>
+  </p-button>
+</div>

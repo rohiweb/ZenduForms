@@ -1,0 +1,120 @@
+@import 'src/colors';
+
+:host {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  position: absolute;
+  top: 148px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  .submission-list {
+    display: flex;
+    flex-direction: column;
+    max-width: 460px;
+    flex-grow: 1;
+    overflow: auto;
+    margin-bottom: -32px;
+    gap: 8px;
+
+    li {
+      cursor: pointer;
+      border: 1px solid $regular-light;
+      border-radius: 4px;
+      padding: 16px;
+    }
+
+    h5.name {
+      margin: 0;
+      padding: 0 0 8px 0;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .attribute {
+      font-weight: 400;
+      padding-bottom: 8px;
+      .name {
+        color: $regular-light;
+        font-weight: 500;
+      }
+      .date {
+        color: $error;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .submission-map {
+    display: flex;
+    min-height: 100px;
+    flex-grow: 2;
+    margin: 0 -40px -32px 0;
+    width: 0;
+  }
+
+  .status {
+    float: right;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 14px;
+    border-width: 1px;
+    border-style: solid;
+    padding: 4px 16px;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      border-radius: 50%;
+      width: 12px;
+      height: 12px;
+      margin-right: 8px;
+      margin-bottom: -1px;
+    }
+
+    &::after {
+      display: inline-block;
+    }
+
+    &.uncomplete {
+      background-color: $error-background;
+      border-color: $error;
+      &::before {
+        background-color: $error;
+      }
+  
+      &::after {
+        content: 'Uncomplete';
+        color: $error;
+      }
+    }
+
+    &.low-risk {
+      background-color: $success-background;
+      border-color: $success;
+      &::before {
+        background-color: $success;
+      }
+  
+      &::after {
+        content: 'Low Risk';
+        color: $success;
+      }
+    }
+
+    &.needs-review {
+      background-color: $regular-background-light;
+      border-color: $regular-light;
+      &::before {
+        background-color: $regular-light;
+      }
+  
+      &::after {
+        content: 'Needs Review';
+        color: $regular-light;
+      }
+    }
+  }
+}

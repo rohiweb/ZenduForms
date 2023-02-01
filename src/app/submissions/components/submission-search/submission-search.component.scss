@@ -1,0 +1,64 @@
+@import 'src/colors';
+
+$input-control-width: 210px;
+
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 32px;
+  justify-content: space-between;
+
+  .filters {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+  }
+  .actions {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .export-icon {
+    margin-right: 9px;
+  }
+
+  ::ng-deep .p-input-icon-left {
+    i {
+      color: $regular-light;
+      font-size: 1.2rem;
+      transform: translateY(-2px);
+    }
+    .p-inputtext {
+      width: 330px;
+      &::placeholder {
+        color: $regular-light;
+      }
+    }
+  }
+
+  ::ng-deep .p-dropdown {
+    width: $input-control-width;
+    .p-placeholder {
+      color: $regular;
+    }
+  }
+
+  ::ng-deep .p-calendar {
+    width: $input-control-width;
+    .p-datepicker-trigger {
+      position: absolute;
+      background: transparent;
+      border: none;
+      color: $regular-light;
+      .p-button-icon {
+        font-size: 1.2rem;
+      }
+    }
+    input.p-inputtext {
+      padding-left: 45px;
+      border-radius: 6px;
+    }
+  }
+}
