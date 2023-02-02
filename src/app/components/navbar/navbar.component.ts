@@ -1,6 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
-import { filter, Subscription } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { setRoute  } from 'src/app/state/app.actions';
+import { map, Subscription } from 'rxjs';
+import { navbarMenuItems } from './navbar.config';
+import { selectRoute } from 'src/app/state/app.selectors';
+import { AppState } from 'src/app/state/app.state';
 
 @Component({
   selector: 'zf-navbar',
@@ -9,96 +14,19 @@ import { filter, Subscription } from 'rxjs';
 })
 export class NavbarComponent implements OnDestroy {
 
-  menuItems = [
-    {
-      label:  'Forms',
-      link: '/forms',
-      icon: {
-        src: 'assets/icons/list.svg',
-        width: 19,
-        height: 16,
-        alt: 'forms icon'
-      },
-      isActive: (currentRoute: string) => {
-        return false;
-      }
-    },
-    {
-      label:  'Customers',
-      link: '/customers',
-      icon: {
-        src: 'assets/icons/users.svg',
-        width: 22,
-        height: 14,
-        alt: 'customers icon'
-      },
-      isActive: (currentRoute: string) => {
-        return false;
-      }
-    },
-    {
-      label:  'Submissions',
-      link: '/submissions',
-      icon: {
-        src: 'assets/icons/submissions.svg',
-        width: 18,
-        height: 20,
-      },
-      isActive: (currentRoute: string) => {
-        return currentRoute === '/'
-          || currentRoute === '/map'
-          || currentRoute === '/list'
-          || currentRoute.includes('/submissions');
-      }
-    },
-    {
-      label:  'History',
-      link: '/history',
-      icon: {
-        src: 'assets/icons/history.svg',
-        width: 21,
-        height: 18,
-        alt: 'history icon'
-      },
-      isActive: (currentRoute: string) => {
-        return false;
-      }
-    },
-    {
-      label:  'Reports',
-      link: '/reports',
-      icon: {
-        src: 'assets/icons/chart.svg',
-        width: 20,
-        height: 18,
-        alt: 'reports icon'
-      },
-      isActive: (currentRoute: string) => {
-        return false;
-      }
-    },
-    {
-      label:  'Workflow',
-      link: '/workflow',
-      icon: {
-        src: 'assets/icons/chart.svg',
-        width: 20,
-        height: 18,
-        alt: 'workflow icon'
-      },
-      isActive: (currentRoute: string) => {
-        return false;
-      }
-    }
-  ]
-  currentRoute = '';
+  currentRoute$ = this.store.pipe(
+    select(selectRoute),
+    map(route => route.current)
+  );
+
+  menuItems = navbarMenuItems;
   routerEventsSubscription: Subscription;
   
-  constructor (private router: Router) {
+  constructor (private router: Router, private store: Store<{app: AppState}>) {
     this.routerEventsSubscription = this.router.events.subscribe((event: Event) => 
       {
         if ( event instanceof NavigationEnd ) {
-          this.currentRoute = event.url;     
+          this.store.dispatch(setRoute({route: event.url}));
         }
       });
   }

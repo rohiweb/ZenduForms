@@ -1,5 +1,5 @@
 <ul class="main-nav">
-  <li *ngFor="let item of menuItems" [ngClass]="{active: item.isActive(currentRoute)}">
+  <li *ngFor="let item of menuItems" [ngClass]="{active: item.isActive((currentRoute$ | async) || '')}">
     <a [routerLink]="[item.link]">
       <img [src]="item.icon.src" width="{{item.icon.width}}" height="{{item.icon.height}}" alt="{{item.icon.alt}}" />
       {{item.label}}

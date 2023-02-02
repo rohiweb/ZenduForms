@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Page404Component } from './components/page404/page404.component';
-import { SubmissionsComponent } from './submissions/submissions.component';
+import { SubmissionsComponent } from './modules/submissions/submissions.component';
 
-const getSubmissionsRoutes = () => import('./submissions/submissions-routing.module').then(m => m.SubmissionsRoutingModule)
+const getSubmissionsRoutes = () => import('./modules/submissions/submissions-routing.module').then(m => m.SubmissionsRoutingModule)
 
 const routes: Routes = [
   {path: '', component: SubmissionsComponent, loadChildren: getSubmissionsRoutes},

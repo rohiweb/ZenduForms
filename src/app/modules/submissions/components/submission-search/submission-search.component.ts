@@ -1,12 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { map, Subscription } from 'rxjs';
+import { selectRoute } from 'src/app/state/app.selectors';
 
 @Component({
   selector: 'zf-submission-search',
   templateUrl: './submission-search.component.html',
   styleUrls: ['./submission-search.component.scss']
 })
-export class SubmissionSearchComponent {
+export class SubmissionSearchComponent implements OnDestroy {
+  routeSegmentsSubscription: Subscription;
+  routeSegments$ = this.store.pipe(
+    select(selectRoute),
+    map(route => route.segments)
+  );
+
   viewModeOptions = [
     {label: 'Map', value: 'map'},
     {label: 'List', value: 'list'}
@@ -30,7 +39,13 @@ export class SubmissionSearchComponent {
   date = new Date();
   viewMode = 'map';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private store: Store) {
+    this.routeSegmentsSubscription = this.routeSegments$.subscribe(
+      (segments: string[]) => {
+        this.viewMode = segments.length > 1 && segments[1] || this.viewMode
+      }
+    )
+  }
 
   onSearchStringChange() {
     console.log(this.searchString)
@@ -50,5 +65,9 @@ export class SubmissionSearchComponent {
 
   onViewModeChange() {
     this.router.navigate([`/submissions/${this.viewMode}`])
+  }
+
+  ngOnDestroy(): void {
+    this.routeSegmentsSubscription.unsubscribe();
   }
 }
