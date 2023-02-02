@@ -1,4 +1,5 @@
 @import 'src/colors';
+@import 'src/variables';
 
 :host {
   display: flex;
@@ -24,6 +25,12 @@
       border: 1px solid $regular-light;
       border-radius: 4px;
       padding: 16px;
+
+      &.no-found {
+        text-align: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
     }
 
     h5.name {
@@ -117,4 +124,19 @@
       }
     }
   }
+  .loading {
+    padding-top: 20px;
+    text-align: center;
+    ::ng-deep .p-progress-spinner {
+      transform: scale(0.7);
+      .p-progress-spinner-circle {
+        stroke: $primary !important;
+      }
+    }
+  }
+
+  @media screen and (max-width: $screen-lg) {
+    top: 208px;
+  }
+
 }

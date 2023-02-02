@@ -1,8 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { map, Subscription } from 'rxjs';
-import { selectRoute } from 'src/app/state/app.selectors';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { selectRouteSegments } from 'src/app/state/app.selectors';
+import { filterSubmissions, getSubmissions } from 'src/app/state/submissions/submissions.actions';
+import { CONFIG } from './submissions-search.config';
 
 @Component({
   selector: 'zf-submission-search',
@@ -11,31 +13,17 @@ import { selectRoute } from 'src/app/state/app.selectors';
 })
 export class SubmissionSearchComponent implements OnDestroy {
   routeSegmentsSubscription: Subscription;
-  routeSegments$ = this.store.pipe(
-    select(selectRoute),
-    map(route => route.segments)
-  );
+  routeSegments$ = this.store.select(selectRouteSegments);
 
-  viewModeOptions = [
-    {label: 'Map', value: 'map'},
-    {label: 'List', value: 'list'}
-  ];
+  viewModeOptions = CONFIG.viewModeOptions;
 
-  fromOptions = [
-    {label: 'denisgordiyenya1@gmail.com', value: 'denisgordiyenya1@gmail.com'},
-    {label: 'denisgordiyenya2@gmail.com', value: 'denisgordiyenya2@gmail.com'},
-    {label: 'denisgordiyenya3@gmail.com', value: 'denisgordiyenya3@gmail.com'}
-  ];
+  fromOptions = CONFIG.fromOptions;
 
-  statusOptions = [
-    {label: 'Uncomplete', value: 'uncomplete'},
-    {label: 'Low Risk', value: 'low_risk'},
-    {label: 'Needs Review', value: 'needs_review'}
-  ];
+  statusOptions = CONFIG.statusOptions;
 
   searchString = '';
   from = '';
-  status = '';
+  status = undefined;
   date = new Date();
   viewMode = 'map';
 
@@ -45,26 +33,33 @@ export class SubmissionSearchComponent implements OnDestroy {
         this.viewMode = segments.length > 1 && segments[1] || this.viewMode
       }
     )
+    this.store.dispatch(getSubmissions({q: ''}));
   }
 
   onSearchStringChange() {
-    console.log(this.searchString)
+    this.store.dispatch(getSubmissions({q: this.searchString}));
   }
 
   onFromChange() {
-    console.log(this.from);
+    this.filterSubmissions();
   }
 
   onStatusChange() {
-    console.log(this.status);
+    this.filterSubmissions();
   }
 
   onDateChange() {
-    console.log(this.date);
+    this.filterSubmissions();
   }
 
   onViewModeChange() {
     this.router.navigate([`/submissions/${this.viewMode}`])
+  }
+
+  filterSubmissions(): void {
+    const from = this.from === null ? '' : this.from;
+    const status = this.status === null ? -1 : this.status === undefined ? -1 : this.status;
+    this.store.dispatch(filterSubmissions({ from: from, status: status, date: this.date}));
   }
 
   ngOnDestroy(): void {

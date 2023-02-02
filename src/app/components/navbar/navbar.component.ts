@@ -1,11 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { setRoute  } from 'src/app/state/app.actions';
-import { map, Subscription } from 'rxjs';
-import { navbarMenuItems } from './navbar.config';
-import { selectRoute } from 'src/app/state/app.selectors';
-import { AppState } from 'src/app/state/app.state';
+import { Subscription } from 'rxjs';
+import { CONFIG } from './navbar.config';
+import { selectCurrentRoute } from 'src/app/state/app.selectors';
 
 @Component({
   selector: 'zf-navbar',
@@ -14,15 +13,12 @@ import { AppState } from 'src/app/state/app.state';
 })
 export class NavbarComponent implements OnDestroy {
 
-  currentRoute$ = this.store.pipe(
-    select(selectRoute),
-    map(route => route.current)
-  );
+  currentRoute$ = this.store.select(selectCurrentRoute);
 
-  menuItems = navbarMenuItems;
+  menuItems = CONFIG.navbarMenuItems;
   routerEventsSubscription: Subscription;
   
-  constructor (private router: Router, private store: Store<{app: AppState}>) {
+  constructor (private router: Router, private store: Store) {
     this.routerEventsSubscription = this.router.events.subscribe((event: Event) => 
       {
         if ( event instanceof NavigationEnd ) {

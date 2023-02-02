@@ -6,10 +6,6 @@ export const initialState: AppState = {
   route: {
     current: '',
     segments: []
-  },
-  submissions: {
-    items: [],
-    selectedItem: undefined
   }
 };
 

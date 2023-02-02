@@ -1,6 +1,7 @@
 @import 'src/colors';
+@import 'variables';
 
-$input-control-width: 210px;
+$input-control-width: 205px;
 
 :host {
   display: flex;
@@ -8,11 +9,12 @@ $input-control-width: 210px;
   align-items: center;
   margin-bottom: 32px;
   justify-content: space-between;
+  gap: 40px;
 
   .filters {
     display: flex;
     flex-direction: row;
-    gap: 40px;
+    gap: 4%;
   }
   .actions {
     display: flex;
@@ -31,7 +33,7 @@ $input-control-width: 210px;
       transform: translateY(-2px);
     }
     .p-inputtext {
-      width: 330px;
+      width: 315px;
       &::placeholder {
         color: $regular-light;
       }
@@ -52,6 +54,7 @@ $input-control-width: 210px;
       background: transparent;
       border: none;
       color: $regular-light;
+      border-radius: 6px;
       .p-button-icon {
         font-size: 1.2rem;
       }
@@ -59,6 +62,44 @@ $input-control-width: 210px;
     input.p-inputtext {
       padding-left: 45px;
       border-radius: 6px;
+    }
+  }
+
+  @media screen and (max-width: $screen-xl) {
+    $input-control-width: 175px;
+    .filters {
+      gap: 2%;
+    }
+    ::ng-deep .p-input-icon-left {
+      .p-inputtext {
+        width: 250px;
+      }
+    }
+    ::ng-deep .p-dropdown {
+      width: $input-control-width;
+    }
+  
+    ::ng-deep .p-calendar {
+      width: $input-control-width;
+    }
+  }
+
+  @media screen and (max-width: $screen-lg) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    $input-control-width: 175px;
+    ::ng-deep .p-input-icon-left {
+      .p-inputtext {
+        width: 200px;
+      }
+    }
+    ::ng-deep .p-dropdown {
+      width: $input-control-width;
+    }
+  
+    ::ng-deep .p-calendar {
+      width: $input-control-width;
     }
   }
 }

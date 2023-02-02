@@ -11,6 +11,9 @@ import { Page404Component } from './components/page404/page404.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { StoreModule } from '@ngrx/store';
 import { appReducer } from './state/app.reducer';
+import { submissionsReducer } from './state/submissions/submissions.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { SubmissionsEffects } from './state/submissions/submissions.effects';
 
 @NgModule({
   declarations: [
@@ -24,9 +27,10 @@ import { appReducer } from './state/app.reducer';
     AppRoutingModule,
     SubmissionsModule,
     TooltipModule,
-    StoreModule.forRoot({
-      app: appReducer 
-    })
+    StoreModule.forRoot({app: appReducer}),
+    StoreModule.forFeature('submissions', submissionsReducer),
+    EffectsModule.forRoot([]),
+    EffectsModule.forFeature([SubmissionsEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

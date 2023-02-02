@@ -1,61 +1,36 @@
 <ul class="submission-list">
-  <li>
-    <div class="status uncomplete"></div>
-    <h5 class="name">Work Flow: Requires Location</h5>
-    <div class="attribute"><span class="name">From:</span> denisgordiyenya@gmail.com</div>
-    <div class="attribute"><span class="name">To:</span> denisgordiyenya@gmail.com</div>
-    <div class="attribute"><span class="name">Due date:</span> <span class="date">06 December</span></div>
-  </li>
-  <li>
-    <div class="status low-risk"></div>
-    <h5 class="name">Work Flow: Requires Location</h5>
-    <div class="attribute"><span class="name">From</span> denisgordiyenya@gmail.com</div>
-    <div class="attribute"><span class="name">To:</span> denisgordiyenya@gmail.com</div>
-    <div class="attribute"><span class="name">Due date:</span> <span class="date">06 December</span></div>
-  </li>
-  <li>
-    <div class="status needs-review"></div>
-    <h5 class="name">Work Flow: Requires Location</h5>
-    <div class="attribute"><span class="name">From:</span> denisgordiyenya@gmail.com</div>
-    <div class="attribute"><span class="name">To:</span> denisgordiyenya@gmail.com</div>
-    <div class="attribute"><span class="name">Due date:</span> <span class="date">06 December</span></div>
-  </li>
-  <li>
-    <div class="status uncomplete"></div>
-    <h5 class="name">Work Flow: Requires Location</h5>
-    <div class="attribute"><span class="name">From:</span> denisgordiyenya@gmail.com</div>
-    <div class="attribute"><span class="name">To:</span> denisgordiyenya@gmail.com</div>
-    <div class="attribute"><span class="name">Due date:</span> <span class="date">06 December</span></div>
-  </li>
-  <li>
-    <div class="status uncomplete"></div>
-    <h5 class="name">Work Flow: Requires Location</h5>
-    <div class="attribute"><span class="name">From:</span> denisgordiyenya@gmail.com</div>
-    <div class="attribute"><span class="name">To:</span> denisgordiyenya@gmail.com</div>
-    <div class="attribute"><span class="name">Due date:</span> <span class="date">06 December</span></div>
-  </li>
-  <li>
-    <div class="status uncomplete"></div>
-    <h5 class="name">Work Flow: Requires Location</h5>
-    <div class="attribute"><span class="name">From:</span> denisgordiyenya@gmail.com</div>
-    <div class="attribute"><span class="name">To:</span> denisgordiyenya@gmail.com</div>
-    <div class="attribute"><span class="name">Due date:</span> <span class="date">06 December</span></div>
-  </li>
-  <li>
-    <div class="status uncomplete"></div>
-    <h5 class="name">Work Flow: Requires Location</h5>
-    <div class="attribute"><span class="name">From:</span> denisgordiyenya@gmail.com</div>
-    <div class="attribute"><span class="name">To:</span> denisgordiyenya@gmail.com</div>
-    <div class="attribute"><span class="name">Due date:</span> <span class="date">06 December</span></div>
-  </li>
+  <ng-container *ngIf="(isLoading$ | async) === false">
+    <li *ngFor="let submission of submissions$ | async" (click)="selectSubmission(submission)">
+      <div class="status uncomplete" [ngClass]="{uncomplete: submission.status === 0, 'needs-review': submission.status === 1, 'low-risk': submission.status === 2}"></div>
+      <h5 class="name">{{submission.name}}</h5>
+      <div class="attribute"><span class="name">From:</span> {{submission.from}}</div>
+      <div class="attribute"><span class="name">To:</span> {{submission.to}}</div>
+      <div class="attribute"><span class="name">Due date: </span> <span class="date">{{submission.dueDate | date}}</span></div>
+    </li>
+    <li class="no-found" *ngIf="!(submissions$ | async)?.length">No Submissions Found</li>
+  </ng-container>
+  <div class="loading" *ngIf="isLoading$ | async">
+    <p-progressSpinner ></p-progressSpinner>
+  </div>
 </ul>
 <div #map class="submission-map">
-  <!-- <div style="width: 900px; height: 500px; background-color: green;"></div> -->
-  <div *ngIf="apiLoaded | async">
+  <div *ngIf="apiLoaded$ | async">
     <google-map 
       [width]="map.clientWidth" 
       [height]="map.clientHeight"
-      [center]="center"
-    ></google-map>
+      [center]="defaultCenter"
+    >
+      <map-marker *ngFor="let submission of submissions$ | async" #marker="mapMarker"
+        icon="assets/icons/submission-marker.svg"
+        [position]="submission.location"
+        [options]="markerOptions"
+        (mapClick)="openInfoWindow(marker, submission)"></map-marker>
+      <map-info-window>
+        <h4 style="padding: 0; margin: 7px 0">{{(selectedSubmission$ | async)?.name}}</h4>
+        <div><strong>From:</strong> {{(selectedSubmission$ | async)?.from}}</div>
+        <div><strong>To:</strong> {{(selectedSubmission$ | async)?.to}}</div>
+        <div><strong>Due date: </strong> <i>{{(selectedSubmission$ | async)?.dueDate | date}}</i></div>
+      </map-info-window>
+    </google-map>
   </div>
 </div>

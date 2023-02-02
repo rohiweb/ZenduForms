@@ -3,4 +3,6 @@ export interface Submission {
   from: string;
   to: string;
   dueDate: Date;
+  status: number;
+  location: google.maps.LatLngLiteral
 }

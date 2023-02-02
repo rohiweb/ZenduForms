@@ -10,12 +10,15 @@ import { SubmissionsComponent } from './submissions.component';
 import { SubmissionListComponent } from './components/submission-list/submission-list.component';
 import { SubmissionMapComponent } from './components/submission-map/submission-map.component';
 import { SubmissionSearchComponent } from './components/submission-search/submission-search.component';
+import { SubmissionsService } from './submissions.service';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
 
 
 @NgModule({
@@ -37,7 +40,11 @@ import { CalendarModule } from 'primeng/calendar';
     ButtonModule,
     SelectButtonModule,
     DropdownModule,
-    CalendarModule
+    CalendarModule,
+    ProgressSpinnerModule
+  ],
+  providers: [
+    SubmissionsService
   ]
 })
 export class SubmissionsModule { }
