@@ -20,7 +20,7 @@ export class SubmissionMapComponent {
   isLoading$ = this.store.select(selectIsLoading);
   submissions$ = this.store.select(selectFilteredSubmissions).pipe(
     tap((submissions: Submission[]) => {
-      if (submissions && submissions.length) {
+      if (submissions && submissions.length && this.googleMap) {
         this.googleMap.panTo(submissions[0].location)
       }
     })
